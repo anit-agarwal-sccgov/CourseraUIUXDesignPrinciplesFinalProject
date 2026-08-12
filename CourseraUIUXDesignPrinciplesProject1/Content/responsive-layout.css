@@ -1,0 +1,402 @@
+/* ==========================================================================
+   Responsive Layout System
+   Flexible Grid + Flexbox Alignment
+   ========================================================================== */
+
+/* ==========================================================================
+   1. PORTFOLIO — Flexible Grid System
+   ========================================================================== */
+
+/*
+   Uses CSS Grid with auto-fill + minmax() so columns adapt automatically.
+   No media queries needed for basic column count — the grid self-adjusts.
+   Custom --card-min-width controls when columns collapse.
+*/
+
+:root {
+  --card-min-width: 300px;
+  --card-max-columns: 3;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, var(--card-min-width)), 1fr)
+  );
+  gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+/* Force specific column counts at breakpoints when auto-fill isn't enough */
+
+/* Desktop: 3 columns max, evenly distributed */
+@media (min-width: 1025px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(var(--card-max-columns), 1fr);
+  }
+
+  /* Optional: featured card spans 2 columns */
+  .project-card--featured {
+    grid-column: span 2;
+  }
+
+  .project-card--featured .project-card__thumbnail {
+    aspect-ratio: 21 / 10;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Featured card fills full row on tablet */
+  .project-card--featured {
+    grid-column: 1 / -1;
+  }
+
+  .project-card--featured .project-card__inner {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .project-card--featured .project-card__thumbnail,
+  .project-card--featured .project-card__body {
+    flex: 1;
+  }
+
+  .project-card--featured .project-card__thumbnail {
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+}
+
+/* Mobile: single column, full width */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .project-card--featured {
+    grid-column: auto;
+  }
+}
+
+/* ==========================================================================
+   2. PROJECT CARD — Flexbox Internal Layout
+   ========================================================================== */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card body stretches to fill remaining space, pushing tags to bottom */
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card__body .project-card-desc {
+  flex: 1; /* Pushes tags to the bottom of every card */
+}
+
+/* Tags always sit at the bottom regardless of content height */
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+/* ==========================================================================
+   3. NAVBAR — Flexbox Responsive Alignment
+   ========================================================================== */
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.navbar__logo {
+  flex-shrink: 0;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* Tablet: tighten nav spacing */
+@media (max-width: 1024px) {
+  .navbar__links {
+    gap: var(--space-md);
+  }
+}
+
+/* Mobile: vertical hamburger menu */
+@media (max-width: 768px) {
+  .navbar__inner {
+    flex-wrap: nowrap;
+  }
+
+  .navbar__links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background-color: var(--color-nav-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-lg) var(--container-padding);
+    gap: var(--space-sm);
+    box-shadow: var(--shadow-md);
+    z-index: 99;
+  }
+
+  .navbar__links.is-open {
+    display: flex;
+  }
+
+  .navbar__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+/* ==========================================================================
+   4. HERO — Flexbox & Grid Hybrid
+   ========================================================================== */
+
+.hero__inner {
+  display: grid;
+  align-items: center;
+}
+
+/* Desktop: asymmetric 2-column */
+@media (min-width: 1025px) {
+  .hero__inner {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-4xl);
+  }
+}
+
+/* Tablet: equal columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* Mobile: stacked, centered */
+@media (max-width: 768px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .hero__image { order: -1; }
+}
+
+/* Hero content uses Flexbox for vertical flow */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  justify-content: center;
+}
+
+/* CTA buttons — wrap responsively */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .hero__actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ==========================================================================
+   5. CONTACT — Grid + Flexbox Hybrid
+   ========================================================================== */
+
+.contact-layout {
+  display: grid;
+  align-items: start;
+}
+
+@media (min-width: 1025px) {
+  .contact-layout {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-4xl);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* Contact info items — Flexbox alignment */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.contact-info__item svg,
+.contact-info__item img {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+}
+
+/* Form uses Flexbox for vertical stacking */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* Form row — side-by-side on wider screens, stacked on mobile */
+.form-row {
+  display: flex;
+  gap: var(--grid-gap);
+}
+
+.form-row .form-group {
+  flex: 1;
+  min-width: 0; /* Prevent overflow */
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   6. SECTION HEADER — Flexbox Centering
+   ========================================================================== */
+
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 700px;
+  margin-inline: auto;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  .section__header {
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   7. FOOTER — Flexbox Responsive Wrap
+   ========================================================================== */
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer__social {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   8. UTILITY — Flexbox Helpers
+   ========================================================================== */
+
+.flex           { display: flex; }
+.flex-col       { flex-direction: column; }
+.flex-row       { flex-direction: row; }
+.flex-wrap      { flex-wrap: wrap; }
+.flex-1         { flex: 1; }
+.items-center   { align-items: center; }
+.items-start    { align-items: flex-start; }
+.items-end      { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between{ justify-content: space-between; }
+.gap-sm         { gap: var(--space-sm); }
+.gap-md         { gap: var(--space-md); }
+.gap-lg         { gap: var(--space-lg); }
+.gap-xl         { gap: var(--space-xl); }
+
+/* Responsive flex direction */
+@media (max-width: 768px) {
+  .md\:flex-col { flex-direction: column; }
+}
+
+@media (max-width: 1024px) {
+  .lg\:flex-col { flex-direction: column; }
+}

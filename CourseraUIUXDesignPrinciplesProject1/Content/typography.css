@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Typography System
+   ========================================================================== */
+
+:root {
+  /* Font Families */
+  --font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Font Sizes — responsive with clamp() */
+  --font-size-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+  --font-size-sm: clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);
+  --font-size-base: clamp(0.95rem, 0.85rem + 0.4vw, 1.1rem);
+  --font-size-md: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+  --font-size-lg: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --font-size-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  --font-size-2xl: clamp(1.9rem, 1.4rem + 1.8vw, 2.8rem);
+  --font-size-3xl: clamp(2.4rem, 1.6rem + 2.5vw, 3.6rem);
+  --font-size-4xl: clamp(2.8rem, 1.8rem + 3.2vw, 4.5rem);
+
+  /* Line Heights */
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.06em;
+  --letter-spacing-uppercase: 0.1em;
+}
+
+/* ==========================================================================
+   Base Typography
+   ========================================================================== */
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Headings
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ==========================================================================
+   Body Text
+   ========================================================================== */
+
+p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.text-lead {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-light);
+}
+
+.text-small {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+}
+
+/* ==========================================================================
+   Labels & Captions
+   ========================================================================== */
+
+label,
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.caption {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  opacity: 0.75;
+}
+
+.overline {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-uppercase);
+  text-transform: uppercase;
+  line-height: var(--line-height-snug);
+}
+
+/* ==========================================================================
+   Buttons & Interactive Text
+   ========================================================================== */
+
+button,
+.btn,
+input[type="submit"] {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-snug);
+  text-transform: none;
+}
+
+.btn-lg {
+  font-size: var(--font-size-base);
+}
+
+.btn-sm {
+  font-size: var(--font-size-xs);
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+a {
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+nav a,
+.nav-link {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   Code & Monospace
+   ========================================================================== */
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==========================================================================
+   Portfolio-Specific Typography
+   ========================================================================== */
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: 0.5em;
+}
+
+.section-subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: 2em;
+}
+
+.project-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+}
+
+.project-card-desc {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.project-tag {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Form Inputs
+   ========================================================================== */
+
+input,
+textarea,
+select {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+::placeholder {
+  font-weight: var(--font-weight-light);
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   Blockquote
+   ========================================================================== */
+
+blockquote {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.font-heading { font-family: var(--font-heading); }
+.font-body    { font-family: var(--font-primary); }
+.font-mono    { font-family: var(--font-mono); }
+
+.fw-light     { font-weight: var(--font-weight-light); }
+.fw-regular   { font-weight: var(--font-weight-regular); }
+.fw-medium    { font-weight: var(--font-weight-medium); }
+.fw-semibold  { font-weight: var(--font-weight-semibold); }
+.fw-bold      { font-weight: var(--font-weight-bold); }
+
+.text-uppercase { text-transform: uppercase; letter-spacing: var(--letter-spacing-uppercase); }
+.text-center    { text-align: center; }
+.text-balance   { text-wrap: balance; }

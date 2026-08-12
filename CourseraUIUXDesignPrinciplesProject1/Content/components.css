@@ -1,0 +1,459 @@
+/* ==========================================================================
+   Interactive Components
+   1. Buttons with Hover Effects
+   2. Project Detail Modal
+   3. Navigation Tooltips
+   ========================================================================== */
+
+/* ==========================================================================
+   1. BUTTONS — Enhanced Hover Effects
+   ========================================================================== */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 0.75em 1.75em;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-snug);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+}
+
+/* Hover lift + glow */
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Active press */
+.btn:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 80ms;
+}
+
+/* Focus ring for keyboard navigation */
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 3px;
+}
+
+/* ---- Primary Button ---- */
+.btn--primary {
+  background-color: var(--color-btn-primary-bg);
+  color: var(--color-btn-primary-text);
+  box-shadow: 0 2px 8px rgba(76, 110, 245, 0.2);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-btn-primary-hover);
+  box-shadow: 0 6px 24px rgba(76, 110, 245, 0.35);
+}
+
+.btn--primary:active {
+  box-shadow: 0 2px 6px rgba(76, 110, 245, 0.2);
+}
+
+/* ---- Outline / Ghost Button ---- */
+.btn--outline {
+  background-color: transparent;
+  border-color: var(--color-btn-secondary-border);
+  color: var(--color-btn-secondary-text);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  color: var(--color-neutral-0);
+  box-shadow: 0 4px 16px rgba(76, 110, 245, 0.25);
+}
+
+/* ---- Icon Button ---- */
+.btn--icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.btn--icon:hover {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-600);
+  box-shadow: 0 4px 12px rgba(76, 110, 245, 0.15);
+}
+
+/* ---- Sweep fill effect (background slides in from left) ---- */
+.btn--sweep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-primary-700);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-smooth);
+  border-radius: inherit;
+}
+
+.btn--sweep:hover::before {
+  transform: scaleX(1);
+}
+
+.btn--sweep:hover {
+  color: var(--color-neutral-0);
+  border-color: var(--color-primary-700);
+}
+
+/* ---- Ripple on click ---- */
+.btn__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  animation: ripple-expand 600ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-expand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ---- Sizes ---- */
+.btn--lg { padding: 0.9em 2.25em; font-size: var(--font-size-base); }
+.btn--sm { padding: 0.5em 1.25em; font-size: var(--font-size-xs); }
+
+/* ==========================================================================
+   2. PROJECT DETAIL MODAL
+   ========================================================================== */
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background-color: var(--color-bg-overlay);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility 0s linear 250ms;
+}
+
+.modal-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Modal Container */
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(0.96);
+  transition: transform var(--transition-smooth);
+}
+
+.modal-overlay.is-active .modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Modal Header */
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.modal__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal__close:hover {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+.modal__close:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+
+/* Modal Body — Scrollable */
+.modal__body {
+  padding: var(--space-xl);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Project image inside modal */
+.modal__image {
+  width: 100%;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Project meta */
+.modal__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.modal__meta .tag {
+  font-size: var(--font-size-xs);
+}
+
+/* Project description */
+.modal__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.modal__description h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.modal__description ul {
+  list-style: disc;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.modal__description li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Modal Footer */
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Modal responsive */
+@media (max-width: 768px) {
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    transform: translateY(100%);
+  }
+
+  .modal-overlay.is-active .modal {
+    transform: translateY(0);
+  }
+
+  .modal__header {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .modal__body {
+    padding: var(--space-lg);
+  }
+
+  .modal__footer {
+    padding: var(--space-md) var(--space-lg);
+    flex-direction: column;
+  }
+
+  .modal__footer .btn {
+    width: 100%;
+  }
+}
+
+/* Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   3. NAVIGATION TOOLTIPS
+   ========================================================================== */
+
+/* Tooltip container — applied to nav links */
+[data-tooltip] {
+  position: relative;
+}
+
+/* Tooltip bubble */
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 0.4em 0.75em;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--color-text-inverse);
+  background-color: var(--color-neutral-800);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility 0s linear 150ms;
+  z-index: 200;
+}
+
+/* Tooltip arrow */
+[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--color-neutral-800);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-fast),
+    visibility 0s linear 150ms;
+  z-index: 200;
+}
+
+/* Show on hover/focus */
+[data-tooltip]:hover::before,
+[data-tooltip]:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition-delay: 300ms, 300ms; /* Slight delay prevents flicker */
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 300ms, 300ms;
+}
+
+/* Tooltip positions */
+[data-tooltip-pos="bottom"]::before {
+  top: calc(100% + 10px);
+  bottom: auto;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+[data-tooltip-pos="bottom"]:hover::before,
+[data-tooltip-pos="bottom"]:focus-visible::before {
+  transform: translateX(-50%) translateY(0);
+}
+
+[data-tooltip-pos="bottom"]::after {
+  top: calc(100% + 4px);
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: var(--color-neutral-800);
+}
+
+[data-tooltip-pos="left"]::before {
+  left: auto;
+  right: calc(100% + 10px);
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+}
+
+[data-tooltip-pos="left"]:hover::before,
+[data-tooltip-pos="left"]:focus-visible::before {
+  transform: translateY(-50%) translateX(0);
+}
+
+[data-tooltip-pos="left"]::after {
+  left: auto;
+  right: calc(100% + 4px);
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top-color: transparent;
+  border-left-color: var(--color-neutral-800);
+}
+
+/* Hide tooltips on touch / mobile — they interfere with taps */
+@media (max-width: 768px) {
+  [data-tooltip]::before,
+  [data-tooltip]::after {
+    display: none;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-tooltip]::before {
+    transition: none;
+  }
+}

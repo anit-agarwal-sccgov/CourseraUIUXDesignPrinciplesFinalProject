@@ -1,0 +1,319 @@
+/* ==========================================================================
+   Cross-Device Harmony & Animation QA Fixes
+   Ensures consistent behavior at all breakpoints and smooth transitions.
+   Load LAST in your stylesheet chain.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. OVERFLOW GUARDS — Prevent Horizontal Scroll
+   ========================================================================== */
+
+html, body {
+  overflow-x: hidden;                    /* Catch any element exceeding viewport */
+}
+
+.site {
+  overflow-x: clip;                      /* Modern alternative, supports animations */
+}
+
+/* Prevent absolutely positioned elements from breaking layout */
+.navbar,
+.modal-overlay {
+  overflow-x: hidden;
+}
+
+/* Images never exceed their containers */
+img, video, iframe, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   2. TOUCH DEVICE OPTIMIZATIONS
+   ========================================================================== */
+
+/* Remove hover effects on touch — prevents "sticky hover" on mobile */
+@media (hover: none) and (pointer: coarse) {
+  .project-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    border-left-color: transparent;
+  }
+
+  .project-card:hover .project-card__thumbnail img {
+    transform: none;
+  }
+
+  .project-card:hover .project-card-title {
+    color: var(--color-text-primary);
+  }
+
+  .project-card__thumbnail::before {
+    display: none;                       /* No shimmer on touch */
+  }
+
+  .btn:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.2);
+  }
+
+  .tag:hover {
+    transform: none;
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+  }
+
+  .footer__social a:hover {
+    transform: none;
+  }
+
+  /* Use active state for tap feedback instead */
+  .project-card:active {
+    transform: scale(0.98);
+    transition-duration: 100ms;
+  }
+
+  .btn:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+
+  .tag:active {
+    background-color: var(--color-primary-600);
+    color: var(--color-neutral-0);
+  }
+}
+
+/* Increase tap targets for touch */
+@media (pointer: coarse) {
+  .navbar__links a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .footer__social a {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .tag {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   3. TRANSITION SMOOTHNESS FIXES
+   ========================================================================== */
+
+/* GPU acceleration for animated elements — prevents jank */
+.project-card,
+.btn,
+.hero__image img,
+.project-card__thumbnail img,
+.modal,
+.navbar__links {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Remove will-change after animation completes (prevents memory bloat) */
+.project-card.is-visible {
+  will-change: auto;
+  transition-delay: 0ms;                 /* Clear stagger delay after entering */
+}
+
+/* Prevent layout shift during card entrance animation */
+.portfolio-grid {
+  contain: layout style;                 /* CSS containment for perf */
+}
+
+/* Smooth the modal overlay transition — no flash */
+.modal-overlay {
+  will-change: opacity;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.modal-overlay.is-active {
+  will-change: auto;
+}
+
+/* Fix Safari transition flicker on cards */
+.project-card__thumbnail {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Ensure smooth navbar toggle on mobile */
+.navbar__links {
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.navbar__links.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (min-width: 769px) {
+  .navbar__links {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   4. ANIMATION TIMING QA — Consistent Entrance Sequence
+   ========================================================================== */
+
+/* Ensure hero animations don't fire until page loads */
+.hero__content > *,
+.hero__image {
+  animation-play-state: paused;
+}
+
+.site.is-loaded .hero__content > *,
+.site.is-loaded .hero__image {
+  animation-play-state: running;
+}
+
+/* Fix: cards that are already in viewport on page load */
+.portfolio-grid .project-card {
+  transition-property: opacity, transform, box-shadow, border-color;
+}
+
+/* Reset stagger delay after card becomes visible (so hover works immediately) */
+.project-card.is-visible {
+  transition-property: transform, box-shadow, border-color;
+  transition-delay: 0ms !important;
+  transition-duration: var(--transition-smooth);
+}
+
+/* Fix: section header animation shouldn't block content interaction */
+.section__header.is-visible {
+  pointer-events: auto;
+}
+
+.section__header:not(.is-visible) {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   5. CROSS-BREAKPOINT CONSISTENCY CHECKS
+   ========================================================================== */
+
+/* Prevent font-size inheritance issues in nested components */
+.modal__body,
+.project-card__body,
+.contact-form {
+  font-size: var(--font-size-base);
+}
+
+/* Consistent border-radius at all sizes */
+@media (max-width: 768px) {
+  .project-card {
+    border-radius: var(--radius-md);     /* Slightly smaller radius on mobile */
+  }
+
+  /* Modal as bottom sheet — consistent rounded top */
+  .modal {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+}
+
+/* Grid gap consistency — same visual density at all breakpoints */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    gap: var(--space-md);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-grid {
+    gap: var(--space-lg);
+  }
+}
+
+@media (min-width: 1025px) {
+  .portfolio-grid {
+    gap: var(--grid-gap);
+  }
+}
+
+/* ==========================================================================
+   6. SAFE AREA INSETS — Notched Devices
+   ========================================================================== */
+
+@supports (padding: env(safe-area-inset-top)) {
+  .navbar {
+    padding-top: env(safe-area-inset-top);
+    height: calc(var(--nav-height) + env(safe-area-inset-top));
+  }
+
+  .footer {
+    padding-bottom: calc(var(--space-2xl) + env(safe-area-inset-bottom));
+  }
+
+  .modal {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Mobile nav dropdown accounts for top inset */
+  @media (max-width: 768px) {
+    .navbar__links {
+      top: calc(var(--nav-height) + env(safe-area-inset-top));
+    }
+  }
+}
+
+/* ==========================================================================
+   7. PRINT SAFEGUARDS
+   ========================================================================== */
+
+@media print {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .project-card,
+  .section__header,
+  .contact-info,
+  .contact-form,
+  .hero__content > *,
+  .hero__image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   8. HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .btn--primary {
+    border: 2px solid ButtonText;
+  }
+
+  .section-title::after {
+    background: CanvasText;
+  }
+
+  .project-card {
+    border: 1px solid CanvasText;
+  }
+
+  .tag {
+    border: 1px solid CanvasText;
+  }
+}

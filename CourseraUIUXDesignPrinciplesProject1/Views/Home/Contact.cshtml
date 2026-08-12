@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<main aria-labelledby="title">
+    <h2 id="title">@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
+
+    <address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
+
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>
+    <!-- Contact form markup with floating label support -->
+    <form class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" class="input" id="name" placeholder=" " required>
+          <label for="name">Full Name</label>
+          <span class="form-group__error" hidden>Please enter your name</span>
+        </div>
+        <div class="form-group">
+          <input type="email" class="input" id="email" placeholder=" " required>
+          <label for="email">Email Address</label>
+          <span class="form-group__error" hidden>Please enter a valid email</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="input" id="subject" placeholder=" ">
+        <label for="subject">Subject</label>
+      </div>
+      <div class="form-group">
+        <textarea class="textarea" id="message" placeholder=" " required></textarea>
+        <label for="message">Your Message</label>
+        <span class="form-group__error" hidden>Please enter a message</span>
+      </div>
+      <button type="submit" class="btn btn--primary">Send Message</button>
+    </form>
+</main>
