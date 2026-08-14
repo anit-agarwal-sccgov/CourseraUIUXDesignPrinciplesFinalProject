@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive-layout.css">
+    <link rel="stylesheet" href="mobile-refinements.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="refinements.css"> <!-- Last — overrides all -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            Alex Styles!
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <hr />
+   <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">ASP.NET</h1>
+        <p class="lead">Here is the portfolio for alex styles</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+    </section>
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb1">
+            <a href="#"> Placeholder1 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb2">
+            <a href="#"> Placeholder2 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb3">
+            <a href="#"> Placeholder3 </a>
+        </section>
+    </div>
+
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb4">
+            <a href="#"> Placeholder4 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb5">
+            <a href="#"> Placeholder5 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb6">
+            <a href="#"> Placeholder6 </a>
+        </section>
+    </div>
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb7">
+            <a href="#"> Placeholder7 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb8">
+            <a href="#"> Placeholder8 </a>
+        </section>
+        <section class="col-md-4" aria-labelledby="placeHolderForThumb9">
+            <a href="#"> Placeholder9 </a>
+        </section>
+    </div>
+
+
+        <footer>
+            <p>(c) 2026</p>
+        </footer>
+    </div>
+
+
+    <script>
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+    <script src="animations.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var myGraph = document.getElementById('myGraph');
+          var floydWarshall = new FusionCharts({
+            type: 'treemaps',
+            renderAt: 'myGraph',
+            width: '100%',
+            height: '400',
+            dataFormat: 'json',
+            dataSource: {
+              "chart": {
+                "caption": "Device Breakpoint Design Layouts",
+                "subCaption": "Based on common device viewports",
+                "theme": "fusion"
+              },
+              "row": [
+                {
+                  "id": "A",
+                  "name": "Desktop ≥1025px",
+                  "parent": "",
+                  "value": 700,
+                  "color": "#f8bbd0"
+                },
+                {
+                  "id": "B",
+                  "name": "3-col grid\nAsymmetric hero\nWide contact",
+                  "parent": "A",
+                  "value": 300,
+                  "color": "#f8bbd0"
+                },
+                {
+                  "id": "C",
+                  "name": "Tablet ≤1024px",
+                  "parent": "",
+                  "value": 600,
+                  "color": "#f9e79f"
+                },
+                {
+                  "id": "D",
+                  "name": "2-col grid\nEqual hero columns\nTighter spacing",
+                  "parent": "C",
+                  "value": 250,
+                  "color": "#f9e79f"
+                },
+                {
+                  "id": "E",
+                  "name": "Mobile ≤768px",
+                  "parent": "",
+                  "value": 400,
+                  "color": "#d1e8e2"
+                },
+                {
+                  "id": "F",
+                  "name": "1-col everything\nStacked hero\nHamburger nav\nFull-width buttons",
+                  "parent": "E",
+                  "value": 150,
+                  "color": "#d1e8e2"
+                }
+              ]
+            }
+          });
+          floydWarshall.render();
+        });
+      </script>
+</body>
+</html>

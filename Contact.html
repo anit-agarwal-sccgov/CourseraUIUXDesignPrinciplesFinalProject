@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive-layout.css">
+    <link rel="stylesheet" href="mobile-refinements.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="refinements.css"> <!-- Last — overrides all -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            Alex Styles!
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <hr />
+       Contact info:  111 Some Way, CA 
+        <footer>
+            <p>(c) 2026</p>
+        </footer>
+    </div>
+
+
+    <script>
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+    <script src="animations.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var myGraph = document.getElementById('myGraph');
+          var floydWarshall = new FusionCharts({
+            type: 'treemaps',
+            renderAt: 'myGraph',
+            width: '100%',
+            height: '400',
+            dataFormat: 'json',
+            dataSource: {
+              "chart": {
+                "caption": "Device Breakpoint Design Layouts",
+                "subCaption": "Based on common device viewports",
+                "theme": "fusion"
+              },
+              "row": [
+                {
+                  "id": "A",
+                  "name": "Desktop ≥1025px",
+                  "parent": "",
+                  "value": 700,
+                  "color": "#f8bbd0"
+                },
+                {
+                  "id": "B",
+                  "name": "3-col grid\nAsymmetric hero\nWide contact",
+                  "parent": "A",
+                  "value": 300,
+                  "color": "#f8bbd0"
+                },
+                {
+                  "id": "C",
+                  "name": "Tablet ≤1024px",
+                  "parent": "",
+                  "value": 600,
+                  "color": "#f9e79f"
+                },
+                {
+                  "id": "D",
+                  "name": "2-col grid\nEqual hero columns\nTighter spacing",
+                  "parent": "C",
+                  "value": 250,
+                  "color": "#f9e79f"
+                },
+                {
+                  "id": "E",
+                  "name": "Mobile ≤768px",
+                  "parent": "",
+                  "value": 400,
+                  "color": "#d1e8e2"
+                },
+                {
+                  "id": "F",
+                  "name": "1-col everything\nStacked hero\nHamburger nav\nFull-width buttons",
+                  "parent": "E",
+                  "value": 150,
+                  "color": "#d1e8e2"
+                }
+              ]
+            }
+          });
+          floydWarshall.render();
+        });
+      </script>
+</body>
+</html>
