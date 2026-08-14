@@ -1,0 +1,541 @@
+﻿/* ==========================================================================
+   Design Refinements
+   1. Typography — Readability & Emphasis
+   2. Color Scheme — Visual Hierarchy & Branding
+   3. Layout — Cross-site Consistency
+   ========================================================================== */
+
+/* ==========================================================================
+   1. TYPOGRAPHY — Readability & Emphasis
+   ========================================================================== */
+
+/* ---- Improved Base Reading Experience ---- */
+body {
+  font-size: var(--font-size-base);
+  line-height: 1.7;                       /* Slightly taller for body comfort */
+  letter-spacing: 0.01em;                 /* Micro spacing aids readability   */
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first last;
+}
+
+/* ---- Heading Rhythm — Consistent Vertical Spacing ---- */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.4em;
+  text-wrap: balance;                     /* Prevents orphan words in headings */
+}
+
+h1 + p, h2 + p, h3 + p, h4 + p {
+  margin-top: 0;                          /* Tighten heading-to-paragraph gap  */
+}
+
+/* ---- Hero Typography — Maximum Impact ---- */
+.hero h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.08;
+  letter-spacing: -0.035em;              /* Tight tracking for display type    */
+  text-wrap: balance;
+}
+
+.hero .overline {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-uppercase);
+  text-transform: uppercase;
+  color: var(--color-primary-500);       /* Brand-colored overline for emphasis */
+  margin-bottom: var(--space-xs);
+}
+
+.hero .text-lead {
+  font-size: var(--font-size-lg);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 540px;                      /* Optimal line length ~65 characters */
+}
+
+/* ---- Section Titles — Clear Hierarchy ---- */
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  position: relative;
+}
+
+/* Decorative accent bar under section titles */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500));
+  border-radius: 2px;
+  margin-top: 0.5em;
+}
+
+.section__header .section-title::after {
+  margin-inline: auto;                   /* Center when inside centered header */
+}
+
+.section-subtitle {
+  font-size: var(--font-size-md);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* ---- Paragraph Readability ---- */
+p {
+  max-width: 70ch;                       /* Optimal reading width              */
+  margin-bottom: 1.15em;
+}
+
+.section__header p {
+  margin-inline: auto;                   /* Center paragraphs in centered blocks */
+}
+
+/* ---- Card Typography — Scannable Content ---- */
+.project-card-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25em;
+}
+
+.project-card-desc {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;                 /* Truncate at 3 lines for uniformity */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Contact Section — Approachable Tone ---- */
+#contact .section-title {
+  font-size: var(--font-size-2xl);       /* Slightly smaller — less aggressive */
+}
+
+/* ---- Labels — Distinct from Body ---- */
+label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Blockquote — Testimonial Style ---- */
+blockquote {
+  position: relative;
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+  padding-left: var(--space-xl);
+  border-left: 3px solid var(--color-primary-400);
+}
+
+blockquote::before {
+  content: '\201C';                      /* Opening curly quote                */
+  position: absolute;
+  left: -0.1em;
+  top: -0.2em;
+  font-size: 3.5rem;
+  font-family: var(--font-heading);
+  font-style: normal;
+  color: var(--color-primary-200);
+  line-height: 1;
+}
+
+/* ---- Footer Text ---- */
+.footer p {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   2. COLOR SCHEME — Visual Hierarchy & Branding
+   ========================================================================== */
+
+/* ---- Refined Token Overrides ---- */
+:root {
+  /* Deepen primary for stronger contrast on white backgrounds */
+  --color-primary-600: #4361ee;
+  --color-primary-700: #3a56d4;
+  --color-primary-800: #2f47b3;
+
+  /* Warmer accent for a friendlier CTA feel */
+  --color-accent-500: #f77f00;
+  --color-accent-600: #e36f00;
+
+  /* Softer surface contrast — less stark white */
+  --color-bg-page:    #fdfdfe;
+  --color-bg-surface: #f5f6fa;
+
+  /* Improved text contrast ratios (WCAG AAA on light bg) */
+  --color-text-primary:   #1a1d2e;
+  --color-text-secondary: #555b6e;
+  --color-text-muted:     #8891a4;
+
+  /* Subtler borders */
+  --color-border: #e4e7ef;
+
+  /* Elevated card shadow — warmer tone */
+  --color-card-shadow: rgba(26, 29, 46, 0.06);
+}
+
+/* ---- Hero — Gradient Text for Branding ---- */
+.hero h1 {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 60%, var(--color-accent-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Fallback for browsers without background-clip */
+@supports not (background-clip: text) {
+  .hero h1 {
+    color: var(--color-primary-700);
+    background: none;
+    -webkit-text-fill-color: unset;
+  }
+}
+
+/* ---- Section Alternating Backgrounds — Clear Content Bands ---- */
+.section:nth-child(odd) {
+  background-color: var(--color-bg-page);
+}
+
+.section:nth-child(even),
+.section--alt {
+  background-color: var(--color-bg-surface);
+}
+
+/* ---- Card — Layered Depth with Subtle Left Border ---- */
+.project-card {
+  border-left: 3px solid transparent;
+  background-color: var(--color-card-bg);
+  box-shadow:
+    0 1px 3px var(--color-card-shadow),
+    0 0 0 1px var(--color-border);
+}
+
+.project-card:hover {
+  border-left-color: var(--color-primary-500);
+  box-shadow:
+    0 8px 32px rgba(67, 97, 238, 0.1),
+    0 0 0 1px var(--color-primary-200);
+}
+
+/* ---- Tags — Softer, More Integrated ---- */
+.tag {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border: 1px solid var(--color-primary-100);
+}
+
+.tag:hover {
+  background-color: var(--color-primary-600);
+  color: var(--color-neutral-0);
+  border-color: var(--color-primary-600);
+}
+
+/* ---- Buttons — Gradient Primary for CTA Weight ---- */
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
+  box-shadow:
+    0 2px 8px rgba(67, 97, 238, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn--primary:hover {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+  box-shadow: 0 6px 24px rgba(67, 97, 238, 0.35);
+}
+
+/* ---- Navbar — Subtle Glass Effect ---- */
+.navbar {
+  background-color: rgba(253, 253, 254, 0.85);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom-color: var(--color-border);
+}
+
+/* ---- Active Nav Indicator — Brand Color ---- */
+.navbar__links a.is-active {
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ---- Footer — Darker Surface for Visual Anchoring ---- */
+.footer {
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-400);
+  border-top: none;
+}
+
+.footer p { color: var(--color-neutral-500); }
+.footer a { color: var(--color-neutral-300); }
+.footer a:hover { color: var(--color-primary-400); }
+
+.footer__social a {
+  color: var(--color-neutral-400);
+}
+
+.footer__social a:hover {
+  color: var(--color-neutral-0);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Dark Mode Adjustments ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-page:        #0c0f18;
+    --color-bg-surface:     #141824;
+    --color-text-primary:   #e8ecf4;
+    --color-text-secondary: #9099ae;
+    --color-text-muted:     #636d82;
+    --color-border:         #262e3f;
+    --color-card-shadow:    rgba(0, 0, 0, 0.35);
+  }
+
+  .hero h1 {
+    background: linear-gradient(135deg, var(--color-primary-400) 0%, var(--color-primary-300) 60%, var(--color-accent-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .navbar {
+    background-color: rgba(12, 15, 24, 0.85);
+  }
+
+  .btn--primary {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+  }
+
+  .project-card:hover {
+    border-left-color: var(--color-primary-400);
+  }
+
+  .section-title::after {
+    background: linear-gradient(90deg, var(--color-primary-400), var(--color-accent-400));
+  }
+
+  .footer {
+    background-color: #080b12;
+  }
+}
+
+/* ==========================================================================
+   3. LAYOUT — Cross-site Consistency
+   ========================================================================== */
+
+/* ---- Consistent Vertical Rhythm ---- */
+:root {
+  --section-padding-y:   clamp(4rem, 8vw, 7rem);
+  --section-header-gap:  clamp(2rem, 4vw, 3.5rem);
+}
+
+.section {
+  padding-block: var(--section-padding-y);
+}
+
+.section__header {
+  margin-bottom: var(--section-header-gap);
+}
+
+/* ---- Container — Consistent Inner Width ---- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* ---- Uniform Section Structure ---- */
+
+/*
+   Every section follows: [overline] → title → subtitle → content
+   This mixin-like class enforces vertical spacing between them.
+*/
+
+.section__header > * + * {
+  margin-top: var(--space-sm);
+}
+
+.section__header .overline {
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.section__header .section-subtitle {
+  margin-top: var(--space-md);
+}
+
+/* ---- Portfolio Grid — Even Card Heights ---- */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: var(--grid-gap);
+  align-items: stretch;                  /* All cards same height per row       */
+}
+
+/* All card bodies fill equally */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card__tags {
+  margin-top: auto;                      /* Tags always anchored to card bottom */
+}
+
+/* Consistent thumbnail ratio */
+.project-card__thumbnail {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+/* ---- Hero — Vertical Centering Guard ---- */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--nav-height));
+  min-height: calc(100dvh - var(--nav-height)); /* Dynamic viewport for mobile */
+}
+
+/* ---- Contact — Consistent Panel Heights ---- */
+.contact-layout {
+  align-items: start;
+}
+
+.contact-form,
+.contact-info {
+  min-height: 0;                         /* Prevent grid blowout              */
+}
+
+/* ---- Consistent Inner Spacing — All Padded Blocks ---- */
+.project-card__body,
+.contact-form,
+.modal__body {
+  padding: var(--space-lg);
+}
+
+/* ---- Consistent Border Radius ---- */
+.project-card,
+.contact-form,
+.input,
+.textarea,
+.btn,
+.tag {
+  border-radius: var(--radius-md);
+}
+
+.project-card { border-radius: var(--radius-lg); }
+.tag          { border-radius: var(--radius-full); }
+
+/* ---- Navbar — Fixed Consistent Height ---- */
+.navbar {
+  height: var(--nav-height);
+}
+
+/* ---- Footer — Consistent With Section Rhythm ---- */
+.footer {
+  padding-block: var(--space-2xl);
+}
+
+/* ---- Responsive Consistency ---- */
+
+@media (min-width: 1025px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero__inner {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-4xl);
+  }
+
+  .contact-layout {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-4xl);
+  }
+
+  /* Wider paragraph measure on large screens */
+  .hero .text-lead { max-width: 560px; }
+  .section-subtitle { max-width: 640px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__inner,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Relax line length on mobile — full width */
+  p, .text-lead, .section-subtitle {
+    max-width: 100%;
+  }
+
+  /* Section title bar centered on mobile */
+  .section-title::after {
+    margin-inline: auto;
+  }
+
+  /* Hero heading — no gradient on low-end mobile */
+  .hero h1 {
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+  }
+
+  /* Consistent card left border on mobile */
+  .project-card {
+    border-left-width: 3px;
+  }
+}
+
+/* ---- Consistent Spacing Utility ---- */
+.stack > * + * {
+  margin-top: var(--space-md);
+}
+
+.stack-lg > * + * {
+  margin-top: var(--space-xl);
+}
+
+.stack-sm > * + * {
+  margin-top: var(--space-sm);
+}

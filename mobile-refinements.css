@@ -1,0 +1,313 @@
+﻿/* ==========================================================================
+   Mobile Refinements
+   1. Responsive Typography Scaling
+   2. Contact Form Mobile Reorganization
+   ========================================================================== */
+
+/* ==========================================================================
+   1. TYPOGRAPHY — Readable Sizes Across All Screens
+   ========================================================================== */
+
+/*
+   Override the base font-size tokens at each breakpoint so every element
+   that references them automatically scales down.
+*/
+
+/* ---- Tablet (≤ 1024px) ---- */
+@media (max-width: 1024px) {
+  :root {
+    --font-size-xs:   0.75rem;
+    --font-size-sm:   0.85rem;
+    --font-size-base: 0.95rem;
+    --font-size-md:   1.1rem;
+    --font-size-lg:   1.25rem;
+    --font-size-xl:   1.5rem;
+    --font-size-2xl:  1.85rem;
+    --font-size-3xl:  2.2rem;
+    --font-size-4xl:  2.6rem;
+  }
+}
+
+/* ---- Mobile (≤ 768px) ---- */
+@media (max-width: 768px) {
+  :root {
+    --font-size-xs:   0.7rem;
+    --font-size-sm:   0.8rem;
+    --font-size-base: 0.9rem;
+    --font-size-md:   1rem;
+    --font-size-lg:   1.1rem;
+    --font-size-xl:   1.3rem;
+    --font-size-2xl:  1.55rem;
+    --font-size-3xl:  1.8rem;
+    --font-size-4xl:  2.1rem;
+
+    --line-height-tight:  1.2;
+    --line-height-normal: 1.65;
+  }
+
+  body {
+    font-size: var(--font-size-base);
+    word-break: break-word;
+    -webkit-text-size-adjust: 100%; /* Prevent iOS auto font scaling */
+  }
+
+  /* Headings — tighter but still readable */
+  h1 {
+    font-size: var(--font-size-4xl);
+    line-height: var(--line-height-tight);
+    letter-spacing: -0.01em;
+  }
+
+  h2 { font-size: var(--font-size-3xl); }
+  h3 { font-size: var(--font-size-2xl); }
+  h4 { font-size: var(--font-size-xl); }
+  h5 { font-size: var(--font-size-lg); }
+  h6 { font-size: var(--font-size-md); }
+
+  /* Paragraphs — wider line height for thumb-scrolling */
+  p {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    margin-bottom: 0.85em;
+  }
+
+  /* Lead text scales down proportionally */
+  .text-lead {
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+  }
+
+  /* Section headings */
+  .section-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 0.35em;
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-sm);
+    margin-bottom: 1.25em;
+    line-height: 1.6;
+  }
+
+  /* Card text */
+  .project-card-title { font-size: var(--font-size-base); }
+  .project-card-desc  { font-size: var(--font-size-sm); line-height: 1.55; }
+  .tag                { font-size: 0.65rem; letter-spacing: 0.04em; }
+
+  /* Captions & overlines */
+  .caption { font-size: 0.65rem; }
+  .overline { font-size: 0.65rem; }
+
+  /* Blockquote */
+  blockquote {
+    font-size: var(--font-size-base);
+    padding-left: var(--space-md);
+  }
+
+  /* Labels */
+  label {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ---- Small mobile (≤ 380px) ---- */
+@media (max-width: 380px) {
+  :root {
+    --font-size-xs:   0.65rem;
+    --font-size-sm:   0.75rem;
+    --font-size-base: 0.85rem;
+    --font-size-4xl:  1.8rem;
+    --font-size-3xl:  1.55rem;
+  }
+}
+
+/* ==========================================================================
+   2. CONTACT FORM — Mobile Reorganization
+   ========================================================================== */
+
+/*
+   Desktop / Tablet: Two-panel layout (info + form side by side)
+   Mobile: Stacked single-column with reordered sections,
+           thumb-friendly tap targets, and floating labels.
+*/
+
+@media (max-width: 768px) {
+
+  /* Stack panels vertically — form first for mobile priority */
+  .contact-layout {
+    display: flex;
+    flex-direction: column-reverse; /* Form on top, info below */
+    gap: var(--space-2xl);
+  }
+
+  /* ---- Form Container ---- */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ---- Form Rows → Full-width stacked ---- */
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  /* ---- Form Groups — Floating Label Pattern ---- */
+  .form-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-group label {
+    position: absolute;
+    top: 0.75em;
+    left: 0.85em;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    pointer-events: none;
+    transition:
+      transform var(--transition-fast),
+      font-size var(--transition-fast),
+      color var(--transition-fast);
+    transform-origin: left top;
+  }
+
+  .form-group .input:focus ~ label,
+  .form-group .input:not(:placeholder-shown) ~ label,
+  .form-group .textarea:focus ~ label,
+  .form-group .textarea:not(:placeholder-shown) ~ label {
+    transform: translateY(-1.6em) scale(0.8);
+    color: var(--color-primary-600);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Extra top padding to make room for floated label */
+  .form-group .input,
+  .form-group .textarea {
+    padding-top: 1.2em;
+  }
+
+  /* ---- Inputs — Larger Tap Targets ---- */
+  .input,
+  .textarea {
+    width: 100%;
+    min-height: 48px; /* Minimum 48px touch target (WCAG) */
+    padding: 0.85em 1em;
+    font-size: var(--font-size-base);
+    border-radius: var(--radius-md);
+    -webkit-appearance: none; /* Remove iOS input styling */
+    appearance: none;
+  }
+
+  .textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  /* ---- Submit Button — Full Width, Prominent ---- */
+  .contact-form .btn {
+    width: 100%;
+    min-height: 52px;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-md);
+    justify-content: center;
+    margin-top: var(--space-sm);
+  }
+
+  /* ---- Contact Info — Compact Horizontal Cards ---- */
+  .contact-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .contact-info__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background-color: var(--color-bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-info__item svg,
+  .contact-info__item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contact-info__item span,
+  .contact-info__item a {
+    font-size: var(--font-size-xs);
+    word-break: break-all;
+  }
+}
+
+/* ---- Small mobile: Info cards stack to single column ---- */
+@media (max-width: 380px) {
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    padding: var(--space-md);
+  }
+}
+
+/* ==========================================================================
+   3. FORM VALIDATION STATES — Mobile Friendly
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+  /* Error state */
+  .form-group.has-error .input,
+  .form-group.has-error .textarea {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 2px rgba(250, 82, 82, 0.15);
+  }
+
+  .form-group.has-error label {
+    color: var(--color-error);
+  }
+
+  .form-group__error {
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+    margin-top: var(--space-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  /* Success state */
+  .form-group.has-success .input,
+  .form-group.has-success .textarea {
+    border-color: var(--color-success);
+  }
+
+  /* Submission feedback */
+  .form-success-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+    padding: var(--space-2xl) var(--space-lg);
+    font-size: var(--font-size-base);
+    color: var(--color-success);
+  }
+}

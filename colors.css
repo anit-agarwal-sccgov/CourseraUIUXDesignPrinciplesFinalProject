@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Color System
+   ========================================================================== */
+
+:root {
+  /* -----------------------------------------------------------------
+     Brand Colors — Primary
+     ----------------------------------------------------------------- */
+  --color-primary-50:  #eef2ff;
+  --color-primary-100: #dbe4ff;
+  --color-primary-200: #bac8ff;
+  --color-primary-300: #91a7ff;
+  --color-primary-400: #748ffc;
+  --color-primary-500: #5c7cfa;  /* Main brand color */
+  --color-primary-600: #4c6ef5;
+  --color-primary-700: #4263eb;
+  --color-primary-800: #3b5bdb;
+  --color-primary-900: #364fc7;
+
+  /* -----------------------------------------------------------------
+     Brand Colors — Accent
+     ----------------------------------------------------------------- */
+  --color-accent-50:  #fff4e6;
+  --color-accent-100: #ffe8cc;
+  --color-accent-200: #ffd8a8;
+  --color-accent-300: #ffc078;
+  --color-accent-400: #ffa94d;
+  --color-accent-500: #ff922b;  /* Main accent */
+  --color-accent-600: #fd7e14;
+  --color-accent-700: #f76707;
+  --color-accent-800: #e8590c;
+  --color-accent-900: #d9480f;
+
+  /* -----------------------------------------------------------------
+     Neutrals
+     ----------------------------------------------------------------- */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f8f9fa;
+  --color-neutral-100: #f1f3f5;
+  --color-neutral-200: #e9ecef;
+  --color-neutral-300: #dee2e6;
+  --color-neutral-400: #ced4da;
+  --color-neutral-500: #adb5bd;
+  --color-neutral-600: #868e96;
+  --color-neutral-700: #495057;
+  --color-neutral-800: #343a40;
+  --color-neutral-900: #212529;
+
+  /* -----------------------------------------------------------------
+     Semantic / Feedback Colors
+     ----------------------------------------------------------------- */
+  --color-success-light: #d3f9d8;
+  --color-success:       #40c057;
+  --color-success-dark:  #2b8a3e;
+
+  --color-warning-light: #fff3bf;
+  --color-warning:       #fab005;
+  --color-warning-dark:  #e67700;
+
+  --color-error-light:   #ffe3e3;
+  --color-error:         #fa5252;
+  --color-error-dark:    #c92a2a;
+
+  --color-info-light:    #d0ebff;
+  --color-info:          #339af0;
+  --color-info-dark:     #1864ab;
+
+  /* -----------------------------------------------------------------
+     Surface & Background Tokens (Light Theme)
+     ----------------------------------------------------------------- */
+  --color-bg-page:       var(--color-neutral-0);
+  --color-bg-surface:    var(--color-neutral-50);
+  --color-bg-elevated:   var(--color-neutral-0);
+  --color-bg-overlay:    rgba(0, 0, 0, 0.45);
+
+  /* -----------------------------------------------------------------
+     Text Tokens (Light Theme)
+     ----------------------------------------------------------------- */
+  --color-text-primary:   var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-muted:     var(--color-neutral-500);
+  --color-text-inverse:   var(--color-neutral-0);
+  --color-text-link:      var(--color-primary-600);
+  --color-text-link-hover:var(--color-primary-800);
+
+  /* -----------------------------------------------------------------
+     Border Tokens
+     ----------------------------------------------------------------- */
+  --color-border:        var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-400);
+  --color-border-focus:  var(--color-primary-500);
+
+  /* -----------------------------------------------------------------
+     Component Tokens
+     ----------------------------------------------------------------- */
+  --color-btn-primary-bg:    var(--color-primary-600);
+  --color-btn-primary-hover: var(--color-primary-700);
+  --color-btn-primary-text:  var(--color-neutral-0);
+  --color-btn-secondary-bg:  transparent;
+  --color-btn-secondary-border: var(--color-primary-600);
+  --color-btn-secondary-text:   var(--color-primary-600);
+
+  --color-input-bg:          var(--color-neutral-0);
+  --color-input-border:      var(--color-neutral-300);
+  --color-input-focus:       var(--color-primary-500);
+  --color-input-placeholder: var(--color-neutral-500);
+
+  --color-card-bg:           var(--color-neutral-0);
+  --color-card-shadow:       rgba(0, 0, 0, 0.06);
+
+  --color-nav-bg:            var(--color-neutral-0);
+  --color-nav-text:          var(--color-neutral-700);
+  --color-nav-active:        var(--color-primary-600);
+
+  --color-tag-bg:            var(--color-primary-50);
+  --color-tag-text:          var(--color-primary-700);
+
+  /* -----------------------------------------------------------------
+     Shadows (paired with color system)
+     ----------------------------------------------------------------- */
+  --shadow-sm:  0 1px 2px var(--color-card-shadow);
+  --shadow-md:  0 4px 12px var(--color-card-shadow);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   Dark Theme Override
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Surface & Background */
+    --color-bg-page:       #0d1117;
+    --color-bg-surface:    #161b22;
+    --color-bg-elevated:   #1c2128;
+    --color-bg-overlay:    rgba(0, 0, 0, 0.65);
+
+    /* Text */
+    --color-text-primary:   #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-muted:     #6e7681;
+    --color-text-inverse:   var(--color-neutral-900);
+    --color-text-link:      var(--color-primary-400);
+    --color-text-link-hover:var(--color-primary-300);
+
+    /* Borders */
+    --color-border:        #30363d;
+    --color-border-strong: #484f58;
+    --color-border-focus:  var(--color-primary-400);
+
+    /* Components */
+    --color-btn-primary-bg:    var(--color-primary-500);
+    --color-btn-primary-hover: var(--color-primary-400);
+
+    --color-input-bg:          #0d1117;
+    --color-input-border:      #30363d;
+    --color-input-placeholder: #6e7681;
+
+    --color-card-bg:           #161b22;
+    --color-card-shadow:       rgba(0, 0, 0, 0.3);
+
+    --color-nav-bg:            #0d1117;
+    --color-nav-text:          #e6edf3;
+
+    --color-tag-bg:            rgba(92, 124, 250, 0.15);
+    --color-tag-text:          var(--color-primary-300);
+
+    /* Shadows */
+    --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ==========================================================================
+   Applied Base Styles
+   ========================================================================== */
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+
+a {
+  color: var(--color-text-link);
+}
+
+a:hover {
+  color: var(--color-text-link-hover);
+}
+
+hr {
+  border-color: var(--color-border);
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.text-primary   { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted     { color: var(--color-text-muted); }
+.text-accent    { color: var(--color-accent-500); }
+.text-brand     { color: var(--color-primary-600); }
+.text-success   { color: var(--color-success); }
+.text-warning   { color: var(--color-warning); }
+.text-error     { color: var(--color-error); }
+
+.bg-page        { background-color: var(--color-bg-page); }
+.bg-surface     { background-color: var(--color-bg-surface); }
+.bg-elevated    { background-color: var(--color-bg-elevated); }
+.bg-primary     { background-color: var(--color-primary-600); color: var(--color-neutral-0); }
+.bg-accent      { background-color: var(--color-accent-500); color: var(--color-neutral-0); }
+
+.border-default { border: 1px solid var(--color-border); }
+.border-strong  { border: 1px solid var(--color-border-strong); }
